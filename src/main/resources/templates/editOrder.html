@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<!--
+Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
+Click nbfs://nbhost/SystemFileSystem/Templates/Other/html.html to edit this template
+-->
+<html lang="en" xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="_layout">
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initialscale=1">
+        <title>Edit Order</title>
+        <!-- Bootstrap CSS -->
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css">
+
+        <!-- Font Awesome CSS -->
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.1/css/all.min.css">
+
+        <!-- Custom CSS -->
+        <style>
+            .card {
+                box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+                border: none;
+                border-radius: 10px;
+            }
+
+            .card-header {
+                background-color: #007bff;
+                color: #fff;
+                border-radius: 10px 10px 0 0;
+            }
+
+            .btn-submit {
+                background-color: #28a745;
+                color: #fff;
+            }
+
+            .btn-reset {
+                background-color: #ffc107;
+                color: #212529;
+            }
+
+            .btn-batal {
+                background-color: #dc3545;
+                color: #fff;
+            }
+        </style>
+    </head>
+    <body>
+        <div layout:fragment="content">
+            <main>
+                <div class="album py-5">
+                    <div class="container">
+                        <div class="card">
+                            <div class="card-header">
+                                <h4><i class="fas fa-exam"></i> Edit
+                                    Order</h4>
+                            </div>
+                            <div class="card-body container">
+                                <div class="col-lg-12">
+                                    <!-- binding obeject -->
+                                    <form th:object="${order}" method="post"
+                                          th:action="@{/update}" class="mb-5">
+                                        <div class="row mb-4">
+                                            <h4 for="inputEmail3"
+                                                class="col-sm-2 col-form-label">Nama</h4>
+                                            <div class="col-sm-10">
+                                                <input class="form-control"
+                                                       type="text" th:field="*{name}">
+                                            </div>
+                                        </div>
+                                        <div class="row mb-4">
+                                            <h4 for="inputEmail3"
+                                                class="col-sm-2 col-form-label">Alamat</h4>
+                                            <div class="col-sm-10">
+                                                <input class="form-control"
+                                                       type="text" th:field="*{alamat}">
+                                            </div>
+                                        </div>
+                                        <div class="row mb-4">
+                                            <h4 for="inputEmail3"
+                                                class="col-sm-2 col-form-label">Makanan</h4>
+                                            <div class="col-sm-10">
+                                                <input class="form-control"
+                                                       type="text" th:field="*{makanan}">
+                                            </div>
+                                        </div>
+                                        <div class="row mb-4">
+                                            <h4 for="inputEmail3"
+                                                class="col-sm-2 col-form-label">Jumlah</h4>
+                                            <div class="col-sm-10">
+                                                <input class="form-control"
+                                                       type="number" name="total_question"
+                                                       th:field="*{jumlah}">
+                                            </div>
+                                        </div>
+                                        <input type="hidden"
+                                               th:field="*{id}">
+                                        <button class="btn btn-primary mr-1
+                                                btn-submit" type="submit"><i
+                                                class="fa fa-paperplane"></i>
+                                            UPDATE</button>
+                                        <a href="/order" class="btn btndanger my-3"> BATAL </a>
+                                    </form>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </main>
+        </div>
+    </body>
+</html>

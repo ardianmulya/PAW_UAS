@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+<!--
+Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
+Click nbfs://nbhost/SystemFileSystem/Templates/Other/html.html to edit this template
+-->
+<html>
+    <head>
+        <title>User Dashboard</title>
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+        <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    </head>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #ffffff;
+            color: white;
+            margin: 0;
+            padding: 0;
+        }
+
+        .header {
+            background-color: #45b6fe;
+            padding: 20px;
+            display: flex; /* Menggunakan flexbox untuk penataan sejajar */
+            justify-content: space-between; /* Mengatur ruang di antara elemen-elemen flex */
+            align-items: center; /* Mengatur penataan vertikal di tengah */
+        }
+
+        .header h1 {
+            margin: 0;
+        }
+
+        .logout-button {
+            background-color: #f44336; /* Merah untuk warna tombol logout */
+            color: white;
+            padding: 10px 20px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 14px;
+        }
+
+        .custom-button {
+            background-color: #45b6fe; /* Warna hijau untuk custom button */
+            color: white;
+            padding: 10px 20px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 14px;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 20px auto;
+            padding: 20px;
+            background-color: #0e2433;
+            border-radius: 5px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+            text-align: center; /* Menengahkan teks */
+        }
+
+        h2 {
+            color: #45b6fe;
+        }
+        table, th,div{
+            color: black;
+            text-align: center;
+            border-collapse: separate;
+            border-spacing: 2px;
+        }
+    </style>
+    <body>
+        <div class="header">
+            <h1>Selamat Datang Admin [[${user.getFullname()}]]</h1>
+            <span sec:authorize="isAuthenticated">
+                <a th:href="@{/showNewProductForm}" class="custom-button">Tambah Product</a>
+                <a th:href="@{/order-customer}" class="custom-button">Lihat Order Customer</a>
+                <a th:href="@{/logout}" class="logout-button">Logout</a>
+            </span>
+        </div>
+        <div class = "container my-3" style="background-color: white;">
+            <h1>Product List</h1>
+
+
+            <br>
+            <br>
+
+
+            <table border ="1" class="table table-hover">
+                <thead>
+                    <tr class="active">
+                        <th>Product Id</th>
+                        <th>Product Name</th>
+                        <th>Product Price</th>
+                        <th>Photo</th>
+                        <th>Action</th>
+                        <th>Action</th>
+                    </tr>
+
+                </thead>
+                <tbody>
+                    <tr th:each="product : ${listProduct}">
+                        <td th:text="${product.id}"></td>
+                        <td th:text="${product.productName}"></td>
+                        <td th:text="${product.price}"></td>
+                        <td><img th:src="${product.photosImagePath}" class="img-round" alt="No pic" width="100" height="60"/>
+                        <td><a th:href="@{/showFormForUpdate/{id}(id=${product.id})}" class="btn btn-primary">Update</a>
+                        <td><a th:href="@{/deleteProduct/{id}(id=${product.id})}" class="btn btn-primary">Delete</a>
+                    </tr>
+                </tbody>
+
+            </table>
+            <div th:if="${totalPages > 1}">
+                <div class="row col-sm-10">
+                    <div class="col-sm-100">Total Rows: [[${totalItems}]]</div>
+
+                    <div class="col-sm-100">
+                        <a th:if="${currentPage < totalPages}"
+                           th:href="@{'/page/' + ${currentPage +1}+ '?sortField=' + ${sortField} + '&sortDir=' + ${sortDir}}">Next</a>
+                        <span th:unless="${currentPage < totalPages}">Next</span> <span
+                            th:each="i:${#numbers.sequence(1, totalPages)}"><a
+                                th:if="${currentPage != i}"
+                                th:href="@{'/page/' + ${i}+ '?sortField=' + ${sortField} + '&sortDir=' + ${sortDir}}">[[${i}]]</a>
+                            <span th:unless="${currentPage !=i}">[[${i}]]</span>
+                        </span> <a th:if="${currentPage < totalPages}"
+                                   th:href="@{'/page/' + ${totalPages}+ '?sortField=' + ${sortField} + '&sortDir=' + ${sortDir}}">Last</a>
+                        <span th:unless="${currentPage < totalPages}">Last</span>
+                    </div>
+
+
+                </div>
+
+
+            </div>
+        </div>
+    </body>
+</html>

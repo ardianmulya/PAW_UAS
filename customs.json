@@ -1,0 +1,17 @@
+{
+    "elements": {},
+    "attributes": {
+        "th:if": {},
+        "th:text": {},
+        "layout:decorate": {},
+        "th:unless": {},
+        "th:action": {},
+        "th:src": {},
+        "sec:authorize": {},
+        "th:href": {},
+        "th:field": {},
+        "th:each": {},
+        "th:value": {},
+        "layout:fragment": {}
+    }
+}

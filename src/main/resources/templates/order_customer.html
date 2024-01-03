@@ -1,0 +1,143 @@
+<!DOCTYPE html>
+
+<html lang="en" xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout" layout:decorate="_layout.html">
+    <head>
+        <title>Order</title>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css">
+         <link href ="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL" crossorigin="anonymous">
+
+        <!-- Custom CSS for Table Styling -->
+        <style>
+            .card {
+                box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+                border: none;
+                border-radius: 10px;
+            }
+
+            .table {
+                width: 100%;
+                margin-bottom: 1rem;
+                color: #212529;
+            }
+
+            th, td {
+                padding: 0.75rem;
+                vertical-align: top;
+                border-top: 1px solid #dee2e6;
+            }
+
+            th {
+                background-color: #f8f9fa;
+                color: #495057;
+                border-bottom: 2px solid #dee2e6;
+            }
+
+            tbody tr:hover {
+                background-color: #f5f5f5;
+            }
+
+            .btn {
+                padding: 0.3rem 0.5rem;
+                font-size: 0.875rem;
+                line-height: 1.5;
+                border-radius: 0.2rem;
+            }
+
+            .btn-success {
+                color: #fff;
+                background-color: #28a745;
+                border-color: #28a745;
+            }
+
+            .btn-warning {
+                color: #212529;
+                background-color: #ffc107;
+                border-color: #ffc107;
+            }
+
+            .btn-danger {
+                color: #fff;
+                background-color: #dc3545;
+                border-color: #dc3545;
+            }
+            .header {
+                background-color: #45b6fe;
+                padding: 20px;
+                display: flex; /* Menggunakan flexbox untuk penataan sejajar */
+                justify-content: space-between; /* Mengatur ruang di antara elemen-elemen flex */
+                align-items: center; /* Mengatur penataan vertikal di tengah */
+            }
+
+            .header h1 {
+                margin: 0;
+            }
+
+            h2 {
+                color: #45b6fe;
+            }
+            .custom-button {
+                background-color: #45b6fe; /* Warna hijau untuk custom button */
+                color: white;
+                padding: 10px 20px;
+                border: none;
+                border-radius: 5px;
+                cursor: pointer;
+                font-size: 14px;
+            }
+        </style>
+    </head>
+    <body>
+        <div class="header">
+            <span sec:authorize="isAuthenticated">
+                <a th:href="@{/admin-page}" class="custom-button">Home</a>
+            </span>
+        </div>
+        <div layout:fragment="content">
+            <main>
+                <section class="py-5 text-center container">
+                    <div class="row py-lg-3">
+                        <div class="col-lg-6 col-md-8 mx-auto">
+                            <h1 class="fw-light display-1">Order Customer</h1>
+                        </div>
+                    </div>
+                </section>
+                <div class="album py-5 bg-light">
+                    <div class="container">
+                        <div class="card">
+                            <div class="card-body text-center container">
+
+                                <div class="table-responsive">
+                                    <div class ="input-group-prepend">
+                                        <a href="/openpdf/order" class="btn btn-success mx-3"
+                                           style="padding-top: 10px; padding-bottom: 10px;">EXPORT PDF</a>
+                                    </div>
+                                    <table class="table table-hover">
+                                        <thead>
+                                            <tr>
+                                                <th>NAME</th>
+                                                <th>ALAMAT</th>
+                                                <th>MAKANAN</th>
+                                                <th>JUMLAH</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            <tr th:each="ujian : ${order}">
+                                                <td th:text="${ujian.name}"></td>
+                                                <td th:text="${ujian.alamat}"></td>
+                                                <td th:text="${ujian.makanan}"></td>
+                                                <td th:text="${ujian.jumlah}"></td>
+                                            </tr>
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </main>
+        </div>
+
+    </body>
+</html>
